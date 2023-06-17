@@ -1,14 +1,15 @@
-use macroquad::prelude::{Color, draw_rectangle, is_mouse_button_down, is_mouse_button_pressed,
-                         is_mouse_button_released, mouse_position, MouseButton, Vec2};
 use crate::selectable_unit::SelectableUnit;
 use crate::settings::{SELECTOR_COLOR, UNIT_SIZE};
+use macroquad::prelude::{
+    draw_rectangle, is_mouse_button_down, is_mouse_button_pressed, is_mouse_button_released,
+    mouse_position, Color, MouseButton, Vec2,
+};
 
 pub(crate) struct SelectorFrame {
     point1: Vec2,
     point2: Vec2,
     color: Color,
 }
-
 
 impl SelectorFrame {
     pub fn new() -> Self {
@@ -42,11 +43,10 @@ impl SelectorFrame {
 
         // выделение области
         if is_mouse_button_released(MouseButton::Left) {
-            if
-            (unit.pos.x * unit.zoom + unit.d.x) < self.point1.x.max(self.point2.x) &&
-                (unit.pos.x * unit.zoom + unit.d.x) > self.point1.x.min(self.point2.x) &&
-                (unit.pos.y * unit.zoom + unit.d.y) < self.point1.y.max(self.point2.y) &&
-                (unit.pos.y * unit.zoom + unit.d.y) > self.point1.y.min(self.point2.y)
+            if (unit.pos.x * unit.zoom + unit.d.x) < self.point1.x.max(self.point2.x)
+                && (unit.pos.x * unit.zoom + unit.d.x) > self.point1.x.min(self.point2.x)
+                && (unit.pos.y * unit.zoom + unit.d.y) < self.point1.y.max(self.point2.y)
+                && (unit.pos.y * unit.zoom + unit.d.y) > self.point1.y.min(self.point2.y)
             {
                 unit.selected = true;
             }
@@ -54,9 +54,8 @@ impl SelectorFrame {
 
         // одиночный клик
         if is_mouse_button_pressed(MouseButton::Left) {
-            if
-            (mouse_position.x - (unit.pos.x * unit.zoom + unit.d.x)).powf(2f32) +
-                (mouse_position.y - (unit.pos.y * unit.zoom + unit.d.y)).powf(2f32)
+            if (mouse_position.x - (unit.pos.x * unit.zoom + unit.d.x)).powf(2f32)
+                + (mouse_position.y - (unit.pos.y * unit.zoom + unit.d.y)).powf(2f32)
                 < (UNIT_SIZE * unit.zoom / 2.).powf(2f32)
             {
                 unit.selected = true;

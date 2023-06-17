@@ -1,17 +1,16 @@
 use macroquad::prelude::*;
-mod settings;
 mod camera;
 mod dark_grey_rectangle;
 mod selectable_unit;
-mod ui;
 mod selector_frame;
+mod settings;
+mod ui;
 
-use crate::settings::{GROUND_COLOR, UNIT_COLOR, UNIT_SIZE, UNIT_SPEED};
 use crate::camera::Camera;
 use crate::dark_grey_rectangle::DarkGrayRectangle;
 use crate::selectable_unit::SelectableUnit;
 use crate::selector_frame::SelectorFrame;
-
+use crate::settings::{GROUND_COLOR, UNIT_COLOR, UNIT_SIZE, UNIT_SPEED};
 
 #[macroquad::main("breakout")]
 async fn main() {
@@ -20,7 +19,6 @@ async fn main() {
     let texture: Texture2D = load_texture("../assets/path3333.png").await.unwrap();
     let mut selectable_unit = SelectableUnit::new(texture);
     let mut selector_frame = SelectorFrame::new();
-
 
     loop {
         clear_background(GROUND_COLOR);

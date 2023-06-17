@@ -1,4 +1,6 @@
-use macroquad::prelude::{BLUE, Color, draw_circle_lines, draw_texture_ex, DrawTextureParams, Texture2D, Vec2};
+use macroquad::prelude::{
+    draw_circle_lines, draw_texture_ex, Color, DrawTextureParams, Texture2D, Vec2, BLUE,
+};
 
 pub trait UI {
     fn pos(&self) -> Vec2;
@@ -25,11 +27,10 @@ pub trait UI {
             self.pos().y * self.zoom() + self.d().y,
             self.size() / 2. * self.zoom(),
             1.,
-            BLUE
+            BLUE,
         )
     }
 }
-
 
 pub trait UnitWithTexture: UI {
     fn texture(&self) -> Texture2D;
@@ -43,13 +44,13 @@ pub trait UnitWithTexture: UI {
             (self.pos().y - self.size() * 0.5) * self.zoom() + self.d().y,
             self.unit_color(),
             DrawTextureParams {
-                dest_size: Some(Vec2::new((
-                                              self.size() * d) * self.zoom(),
-                                          self.size() * self.zoom())),
+                dest_size: Some(Vec2::new(
+                    (self.size() * d) * self.zoom(),
+                    self.size() * self.zoom(),
+                )),
                 rotation: self.rotation() - f32::to_radians(90.),
                 ..Default::default()
-            }
+            },
         );
     }
-
 }

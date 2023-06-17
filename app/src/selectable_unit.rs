@@ -1,7 +1,7 @@
-use macroquad::prelude::*;
-use crate::settings::{UNIT_ROTATION_SPEED};
+use crate::settings::UNIT_ROTATION_SPEED;
+use crate::ui::{UnitWithTexture, UI};
 use crate::{UNIT_COLOR, UNIT_SIZE, UNIT_SPEED};
-use crate::ui::{UI, UnitWithTexture};
+use macroquad::prelude::*;
 
 pub(crate) struct SelectableUnit {
     pub(crate) pos: Vec2,
@@ -16,26 +16,36 @@ pub(crate) struct SelectableUnit {
 }
 
 impl UI for SelectableUnit {
-    fn pos(&self) -> Vec2 { self.pos }
-    fn zoom(&self) -> f32 { self.zoom }
-    fn d(&self) -> Vec2 { self.d }
-    fn size(&self) -> f32 { self.size }
-    fn unit_color(&self) -> Color { UNIT_COLOR }
-    fn rotation(&self) -> f32 { self.rotation }
+    fn pos(&self) -> Vec2 {
+        self.pos
+    }
+    fn zoom(&self) -> f32 {
+        self.zoom
+    }
+    fn d(&self) -> Vec2 {
+        self.d
+    }
+    fn size(&self) -> f32 {
+        self.size
+    }
+    fn unit_color(&self) -> Color {
+        UNIT_COLOR
+    }
+    fn rotation(&self) -> f32 {
+        self.rotation
+    }
 }
 
 impl UnitWithTexture for SelectableUnit {
-    fn texture(&self) -> Texture2D { self.texture }
+    fn texture(&self) -> Texture2D {
+        self.texture
+    }
 }
-
 
 impl SelectableUnit {
     pub fn new(texture: Texture2D) -> Self {
         Self {
-            pos: Vec2::new(
-                screen_width() * 0.5,
-                screen_height() * 0.5,
-            ),
+            pos: Vec2::new(screen_width() * 0.5, screen_height() * 0.5),
             zoom: 1.,
             d: Vec2::new(0., 0.),
             size: UNIT_SIZE,
@@ -56,10 +66,13 @@ impl SelectableUnit {
             if !is_key_down(KeyCode::LeftShift) && !is_key_down(KeyCode::LeftControl) {
                 self.order.clear();
             }
-            self.order.push((
-                (mouse_position().0 - self.d.x) / self.zoom,
-                (mouse_position().1 - self.d.y) / self.zoom,
-            ).into());
+            self.order.push(
+                (
+                    (mouse_position().0 - self.d.x) / self.zoom,
+                    (mouse_position().1 - self.d.y) / self.zoom,
+                )
+                    .into(),
+            );
         }
 
         let mut y_move = -1f32;
@@ -74,15 +87,19 @@ impl SelectableUnit {
         if self.order.len() > 0 {
             self.rotation = self.rotation % f32::to_radians(360.);
             let mut dx = self.pos.x - self.order[0].x;
-            if dx == 0f32 { dx += 1f32; };
+            if dx == 0f32 {
+                dx += 1f32;
+            };
 
             let mut dy = self.pos.y - self.order[0].y;
-            if dy == 0f32 { dy += 1f32; };
+            if dy == 0f32 {
+                dy += 1f32;
+            };
 
             let a;
             if dx >= 0f32 {
-                a = (dy / dx).atan(); }
-            else {
+                a = (dy / dx).atan();
+            } else {
                 a = (dy / dx).atan() - f32::to_radians(180.);
             }
 
@@ -122,8 +139,8 @@ impl SelectableUnit {
                 x1 = self.pos.x;
                 y1 = self.pos.y;
             } else {
-                x1 = self.order[i-1].x;
-                y1 = self.order[i-1].y;
+                x1 = self.order[i - 1].x;
+                y1 = self.order[i - 1].y;
             }
             let x2 = self.order[i].x;
             let y2 = self.order[i].y;
@@ -144,7 +161,7 @@ impl SelectableUnit {
                 self.order[i].x * self.zoom + self.d.x - 12.,
                 self.order[i].y * self.zoom + self.d.y - 5.,
                 18.,
-                BLACK
+                BLACK,
             );
         }
     }
@@ -159,4 +176,3 @@ impl SelectableUnit {
         }
     }
 }
-

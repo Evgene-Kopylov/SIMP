@@ -1,7 +1,7 @@
 use macroquad::prelude::*;
 
-use crate::{UNIT_COLOR, UNIT_SIZE};
 use crate::ui::UI;
+use crate::{UNIT_COLOR, UNIT_SIZE};
 
 pub struct DarkGrayRectangle {
     pos: Vec2,
@@ -10,16 +10,26 @@ pub struct DarkGrayRectangle {
     zoom: f32,
 }
 
-
 impl UI for DarkGrayRectangle {
-    fn pos(&self) -> Vec2 { self.pos }
-    fn zoom(&self) -> f32 { self.zoom }
-    fn d(&self) -> Vec2 { self.d }
-    fn size(&self) -> f32 { self.size }
-    fn unit_color(&self) -> Color { UNIT_COLOR }
-    fn rotation(&self) -> f32 { 0. }
+    fn pos(&self) -> Vec2 {
+        self.pos
+    }
+    fn zoom(&self) -> f32 {
+        self.zoom
+    }
+    fn d(&self) -> Vec2 {
+        self.d
+    }
+    fn size(&self) -> f32 {
+        self.size
+    }
+    fn unit_color(&self) -> Color {
+        UNIT_COLOR
+    }
+    fn rotation(&self) -> f32 {
+        0.
+    }
 }
-
 
 impl DarkGrayRectangle {
     pub fn new() -> Self {
@@ -72,7 +82,6 @@ impl DarkGrayRectangle {
     }
 
     pub fn draw(&self) {
-
         let visible_pos = self.visible_coords();
         let visible_size = self.visible_size();
 
@@ -81,7 +90,7 @@ impl DarkGrayRectangle {
             visible_pos.y,
             visible_size,
             visible_size,
-            self.unit_color()
+            self.unit_color(),
         );
     }
 }

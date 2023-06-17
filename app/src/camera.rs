@@ -1,8 +1,5 @@
+use crate::settings::{LINE_COLOR, TRANSPARENT};
 use macroquad::prelude::*;
-use crate::settings::{
-    LINE_COLOR,
-    TRANSPARENT
-};
 
 pub struct Camera {
     x: f32,
@@ -30,11 +27,7 @@ impl Camera {
         for i in -range_x..=range_x {
             let x = (i as f32) * (self.step * self.zoom) + self.x;
             if x > 0. && x < screen_width() {
-                draw_line(
-                    x, 0.,
-                    x, screen_height(),
-                    1.,
-                    LINE_COLOR);
+                draw_line(x, 0., x, screen_height(), 1., LINE_COLOR);
             }
         }
 
@@ -42,11 +35,7 @@ impl Camera {
         for i in -range_y..=range_y {
             let y = (i as f32) * (self.step * self.zoom) + self.y;
             if y > 0. && y < screen_height() {
-                draw_line(
-                    0.,y,
-                    screen_width(),y,
-                    1.,
-                    LINE_COLOR);
+                draw_line(0., y, screen_width(), y, 1., LINE_COLOR);
             }
         }
     }
@@ -55,7 +44,7 @@ impl Camera {
         let initial_position: Vec2 = Vec2::new(200., 300.);
         let pos: Vec2 = Vec2::new(
             initial_position.x * self.zoom,
-            initial_position.y * self.zoom
+            initial_position.y * self.zoom,
         );
         draw_hexagon(
             pos.x + self.x,
@@ -64,7 +53,7 @@ impl Camera {
             1.,
             true,
             DARKGRAY,
-            TRANSPARENT
+            TRANSPARENT,
         )
     }
 
